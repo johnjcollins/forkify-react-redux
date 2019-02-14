@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipesStyle from '../../styles/RecipesStyle';
 import RecipesListStyle from '../../styles/RecipesListStyle';
 import RecipeListItemStyle from '../../styles/RecipesListItemStyle';
@@ -54,6 +55,19 @@ const Results = ({
       </RecipesStyle>
     </React.Fragment>
   );
+};
+
+Results.propTypes = {
+  recipes: PropTypes.array.isRequired,
+  start: PropTypes.number.isRequired,
+  end: PropTypes.number.isRequired,
+  selectedRecipe: PropTypes.object,
+  loading: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired
 };
 
 export default Results;

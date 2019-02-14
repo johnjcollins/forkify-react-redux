@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SearchStyle from './SearchStyle';
 import ButtonStyle from '../../styles/ButtonStyle';
 
@@ -14,6 +15,7 @@ class Search extends Component {
   };
 
   render() {
+    const { onClick } = this.props;
     return (
       <SearchStyle>
         <input
@@ -25,7 +27,7 @@ class Search extends Component {
         />
         <ButtonStyle
           onClick={e => {
-            this.props.onClick(this.state.value, e);
+            onClick(this.state.value, e);
             this.setState({
               value: ''
             });
@@ -40,5 +42,9 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
 
 export default Search;

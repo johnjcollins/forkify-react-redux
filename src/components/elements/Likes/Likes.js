@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LikesStyle from './LikesStyle';
 import LikesListStyle from '../../styles/LikesListStyle';
 import LikesListItemStyle from '../../styles/LikeListItemStyle';
@@ -29,6 +30,12 @@ const Likes = ({ numLikes, likes, onClick }) => {
       </div>
     </LikesStyle>
   );
+};
+
+Likes.propTypes = {
+  numLikes: PropTypes.number.isRequired,
+  likes: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default Likes;

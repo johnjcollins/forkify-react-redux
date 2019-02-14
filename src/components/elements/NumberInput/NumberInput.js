@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 class NumberInput extends Component {
@@ -24,6 +25,10 @@ class NumberInput extends Component {
     );
   }
 }
+
+NumberInput.propTypes = {
+  count: PropTypes.number.isRequired
+};
 
 const NumberInputStyle = styled.input`
   color: inherit;

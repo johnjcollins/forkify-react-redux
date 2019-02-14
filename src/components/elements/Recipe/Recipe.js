@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RecipeStyle from './RecipeStyle';
 import RecipeFigureStyle from '../../styles/RecipeFigureStyle';
 import RecipeDetailsStyle from '../../styles/RecipeDetailsStyle';
@@ -91,6 +92,15 @@ const Recipe = ({
       ) : null}
     </RecipeStyle>
   );
+};
+
+Recipe.propTypes = {
+  recipe: PropTypes.object,
+  onServingChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  isLiked: PropTypes.bool.isRequired,
+  likeToggle: PropTypes.func.isRequired,
+  onShoppingListClick: PropTypes.func.isRequired
 };
 
 export default Recipe;

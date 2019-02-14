@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ShoppingStyle from './ShoppingStyle';
 import ShoppingListStyle from '../../styles/ShoppingListStyle';
 import ShoppingListItemStyle from '../../styles/ShoppingListItemStyle';
@@ -39,6 +40,11 @@ const Shopping = ({ list, onDeleteClick }) => {
       </Copyright>
     </ShoppingStyle>
   );
+};
+
+Shopping.propTypes = {
+  list: PropTypes.array.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 
 export default Shopping;

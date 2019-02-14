@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PageButtonStyle from '../../styles/PageButtonStyle';
 
 const PageButton = ({ type, page, onClick }) => {
@@ -20,6 +21,12 @@ const PageButton = ({ type, page, onClick }) => {
       </svg>
     </PageButtonStyle>
   );
+};
+
+PageButton.propTypes = {
+  type: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default PageButton;

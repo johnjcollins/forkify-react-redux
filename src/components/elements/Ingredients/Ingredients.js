@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IngredientsStyle from './IngredientsStyle';
 import IngredientsListStyle from '../../styles/IngredientsListStyle';
 import IngredientsListItemStyle from '../../styles/IngredientsListItemStyle';
@@ -30,6 +31,11 @@ const Ingredients = ({ ingredients, onClick }) => {
       </SmallButtonStyle>
     </IngredientsStyle>
   );
+};
+
+Ingredients.propTypes = {
+  ingredients: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default Ingredients;

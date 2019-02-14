@@ -27,7 +27,7 @@ class App extends Component {
     this.getLikes();
   }
 
-  handleSearch = (query, e) => {
+  handleSearch = async (query, e) => {
     e.preventDefault();
 
     this.setState({
@@ -39,18 +39,20 @@ class App extends Component {
     });
 
     const endpoint = `${PROXY}${API_URL}search?key=${API_KEY}&q=${query}`;
-    fetch(endpoint)
-      .then(result => result.json())
-      .then(result =>
-        this.setState({
-          recipes: result.recipes,
-          loadingRecipes: false,
-          resultsPages: Math.ceil(
-            result.recipes.length / this.state.resultsPageSize
-          )
-        })
-      )
-      .catch(error => console.error(`ERROR retrieving recipes data: ${error}`));
+
+    try {
+      const result = await (await fetch(endpoint)).json();
+
+      this.setState({
+        recipes: result.recipes,
+        loadingRecipes: false,
+        resultsPages: Math.ceil(
+          result.recipes.length / this.state.resultsPageSize
+        )
+      });
+    } catch (error) {
+      console.error(`ERROR retrieving recipes data: ${error}`);
+    }
   };
 
   handleIncrementCurrentPage = () => {
@@ -142,7 +144,7 @@ class App extends Component {
     }
   };
 
-  getRecipe = id => {
+  getRecipe = async id => {
     this.setState({
       recipe: null,
       list: [],
@@ -150,34 +152,36 @@ class App extends Component {
     });
 
     const endpoint = `${PROXY}${API_URL}get?key=${API_KEY}&rId=${id}`;
-    fetch(endpoint)
-      .then(result => result.json())
-      .then(result => {
-        const {
-          recipe_id,
-          title,
-          publisher,
-          image_url,
-          source_url,
-          ingredients
-        } = result.recipe;
-        const enhancedRecipe = new EnhancedRecipe(
-          recipe_id,
-          title,
-          publisher,
-          image_url,
-          source_url,
-          ingredients
-        );
-        enhancedRecipe.parseIngredients();
-        enhancedRecipe.calcTime();
-        enhancedRecipe.calcServings();
-        this.setState({
-          recipe: enhancedRecipe,
-          loadingRecipe: false
-        });
-      })
-      .catch(error => console.error(`ERROR getting recipe: ${error}`));
+
+    try {
+      const result = await (await fetch(endpoint)).json();
+
+      const {
+        recipe_id,
+        title,
+        publisher,
+        image_url,
+        source_url,
+        ingredients
+      } = result.recipe;
+      const enhancedRecipe = new EnhancedRecipe(
+        recipe_id,
+        title,
+        publisher,
+        image_url,
+        source_url,
+        ingredients
+      );
+      enhancedRecipe.parseIngredients();
+      enhancedRecipe.calcTime();
+      enhancedRecipe.calcServings();
+      this.setState({
+        recipe: enhancedRecipe,
+        loadingRecipe: false
+      });
+    } catch (error) {
+      console.error(`ERROR getting recipe: ${error}`);
+    }
   };
 
   render() {
